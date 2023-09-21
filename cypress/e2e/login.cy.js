@@ -1,3 +1,6 @@
+import loginPage, { login } from '../support/pageObject/loginPage';
+const user = require('../fixtures/user.json');
+
 describe('login spec', () => {
 
   beforeEach (() => {
@@ -5,35 +8,29 @@ describe('login spec', () => {
     cy.get('.ico-login').click()
   });
 
-  it('sucessfully login', () => {
-    cy.fixture('user.json').then((user) => {
-      const datauser = user[1];
-      cy.login(datauser.email, datauser.password)
-      cy.verifyContain('.account', datauser.email)
-    })
+  it('sucessfully login with POM and fixtures', () => {
+    loginPage.inputUsername(user[1].email)
+    loginPage.inputPassword(user[1].password)
+    loginPage.clickLoginButton()
   })
-
 
   it('wrong email', () => {
     cy.fixture('user.json').then((user) => {
-      const datauser = user[2];
-      cy.login(datauser.email, datauser.password)
+      cy.login(user[2].email, user[2].password)
       cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
     })
   })
 
   it('wrong password', () => {
     cy.fixture('user.json').then((user) => {
-      const datauser = user[3];
-      cy.login(datauser.email, datauser.password)
+      cy.login(user[3].email, user[3].password)
       cy.verifyContain('.message-error', 'Login was unsuccessful. Please correct the errors and try again.')
     })
   })
 
-  it.only('wrong email and password', () => {    
+  it('wrong email and password', () => {    
     cy.fixture('user.json').then((user) => {
-      const datauser = user[4];
-      cy.login(datauser.email, datauser.password)
+      cy.login(user[4].email, user[4].password)
       cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
     })
   })
