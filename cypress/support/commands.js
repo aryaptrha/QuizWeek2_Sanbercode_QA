@@ -10,7 +10,22 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+    Cypress.Commands.add('login', () => {
+        cy.get('#Email').type(Cypress.env('login_email'))
+        cy.get('#Password').type(Cypress.env('login_password'))
+        cy.get('.login-button').click()
+    })
+
+    Cypress.Commands.add('klik', (locator) => {
+        cy.get(locator)
+        .should('be.visible')
+        .click()
+    })
+
+    Cypress.Commands.add('verifyContain', (locator, value) => {
+        cy.get(locator).should('contain', value)
+    })
+
 //
 //
 // -- This is a child command --
