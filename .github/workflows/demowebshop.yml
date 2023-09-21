@@ -13,3 +13,9 @@ jobs:
         with:
           spec: cypress/e2e/login.cy.js
           browser: chrome
+
+      - name: Regression Register
+        uses: cypress-io/github-action@v6
+        with:
+          spec: cypress/e2e/register.cy.js
+          browser: chrome
