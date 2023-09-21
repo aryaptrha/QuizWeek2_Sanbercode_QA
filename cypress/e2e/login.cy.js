@@ -6,39 +6,35 @@ describe('login spec', () => {
   });
 
   it('sucessfully login', () => {
-    cy.login()
-    cy.verifyContain('.account', Cypress.env('login_email'))
+    cy.fixture('user.json').then((user) => {
+      const datauser = user[1];
+      cy.login(datauser.email, datauser.password)
+      cy.verifyContain('.account', datauser.email)
+    })
   })
 
 
   it('wrong email', () => {
-          
-    cy.get('#Email').type('john.doe@gmail')
-    cy.get('#Password').type(Cypress.env('login_password'))
-    
-    cy.klik('.login-button')
-  
-    cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
-
+    cy.fixture('user.json').then((user) => {
+      const datauser = user[2];
+      cy.login(datauser.email, datauser.password)
+      cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
     })
+  })
 
   it('wrong password', () => {
-            
-    cy.get('#Email').type(Cypress.env('login_email'))
-    cy.get('#Password').type('123456')
-    
-    cy.klik('.login-button')
-    
-    cy.verifyContain('.message-error', 'Login was unsuccessful. Please correct the errors and try again.')
+    cy.fixture('user.json').then((user) => {
+      const datauser = user[3];
+      cy.login(datauser.email, datauser.password)
+      cy.verifyContain('.message-error', 'Login was unsuccessful. Please correct the errors and try again.')
     })
+  })
 
-  it('wrong email and password', () => {
-              
-    cy.get('#Email').type('john.doe@gmail')
-    cy.get('#Password').type('123456')
-      
-    cy.klik('.login-button')
-      
-    cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
+  it.only('wrong email and password', () => {    
+    cy.fixture('user.json').then((user) => {
+      const datauser = user[4];
+      cy.login(datauser.email, datauser.password)
+      cy.verifyContain('.field-validation-error', 'Please enter a valid email address.')
     })
+  })
 })

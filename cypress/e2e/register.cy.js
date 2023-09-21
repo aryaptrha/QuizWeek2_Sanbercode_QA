@@ -13,11 +13,11 @@ describe('register spec', () => {
   it('successfully registered', () => {
 
     cy.get('[type="radio"]').check('M')
-    cy.get('#FirstName').type('John')
-    cy.get('#LastName').type('Doe')
-    cy.get('#Email').type(email)
-    cy.get('#Password').type(password)
-    cy.get('#ConfirmPassword').type(password)
+    cy.ketik('#FirstName', Cypress.env('first_name'))
+    cy.ketik('#LastName', Cypress.env('last_name'))
+    cy.ketik('#Email', email)
+    cy.ketik('#Password', password)
+    cy.ketik('#ConfirmPassword', password)
 
     cy.klik('#register-button')
 
@@ -27,11 +27,11 @@ describe('register spec', () => {
   it('email already exists', () => {
 
       cy.get('[type="radio"]').check('M')
-      cy.get('#FirstName').type(Cypress.env('first_name'))
-      cy.get('#LastName').type(Cypress.env('last_name'))
-      cy.get('#Email').type('john.doe@gmail.com')
-      cy.get('#Password').type(password)
-      cy.get('#ConfirmPassword').type(password)
+      cy.ketik('#FirstName', Cypress.env('first_name'))
+      cy.ketik('#LastName', Cypress.env('last_name'))
+      cy.ketik('#Email', 'john.doe@gmail.com')
+      cy.ketik('#Password', password)
+      cy.ketik('#ConfirmPassword', password)
 
       cy.klik('#register-button')
 
@@ -41,10 +41,10 @@ describe('register spec', () => {
   it('passwords do not match', () => {
 
         cy.get('[type="radio"]').check('M')
-        cy.get('#FirstName').type(Cypress.env('first_name'))
-        cy.get('#Email').type(email)
-        cy.get('#Password').type(password)
-        cy.get('#ConfirmPassword').type('123456')
+        cy.ketik('#FirstName', Cypress.env('first_name'))
+        cy.ketik('#Email', email)
+        cy.ketik('#Password', password)
+        cy.ketik('#ConfirmPassword', '123456')
 
         cy.klik('#register-button')
 

@@ -10,9 +10,9 @@
 //
 //
 // -- This is a parent command --
-    Cypress.Commands.add('login', () => {
-        cy.get('#Email').type(Cypress.env('login_email'))
-        cy.get('#Password').type(Cypress.env('login_password'))
+    Cypress.Commands.add('login', (email, password) => {
+        cy.get('#Email').type(email)
+        cy.get('#Password').type(password)
         cy.get('.login-button').click()
     })
 
@@ -24,6 +24,10 @@
 
     Cypress.Commands.add('verifyContain', (locator, value) => {
         cy.get(locator).should('contain', value)
+    })
+
+    Cypress.Commands.add('ketik', (locator, value) => {
+        cy.get(locator).type(value)
     })
 
 //
